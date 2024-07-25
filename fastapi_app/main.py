@@ -41,11 +41,11 @@ class StressInput(BaseModel):
 @app.post("/predict")
 async def predict(stress_input: StressInput):
     print(stress_input)
-    input_data = np.array([[stress_input.q1, stress_input.q2, stress_input.q3, stress_input.q4, stress_input.q5]])
-    stress_level = model.predict(input_data)[0]
+    input_data = np.array([stress_input.q1, stress_input.q2, stress_input.q3, stress_input.q4, stress_input.q5]).reshape(1,-1)
+    stress_level = model.predict(input_data).tolist()[0]
     if stress_level <= 2:
         stress_category = "Low Stress"
-    elif stress_level <= 4:
+    elif stress_level < 4:
         stress_category = "Moderate Stress"
     else:
         stress_category = "High Stress"

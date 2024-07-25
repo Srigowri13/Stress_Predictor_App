@@ -29,25 +29,23 @@ Future<void> _submitForm() async {
       'q4': _q4,
       'q5': _q5,
     };
-
+      print('0');
     final String jsonData = jsonEncode(formData);
 
     try {
       final response = await http.post(
-        Uri.parse('http://127.0.0.1:8000/predict'), // Ensure this matches your backend URL
+        Uri.parse('https://heroic-falcon-prompt.ngrok-free.app/predict'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonData,
       );
-
       if (mounted) {
         if (response.statusCode == 200) {
           final Map<String, dynamic> result = jsonDecode(response.body);
           final int stressLevel = result['stress_level'];
           final String stressCategory = result['stress_category'];
-
-          // Navigate to ResultPage
+          print('3');
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -62,7 +60,7 @@ Future<void> _submitForm() async {
         }
       }
     } catch (e) {
-      // Handle any errors here
+      //
     }
   }
 }
@@ -89,6 +87,7 @@ Future<void> _submitForm() async {
             padding: const EdgeInsets.only(top: 40.0),
             child: Container(
               width: MediaQuery.of(context).size.width * 0.8,
+              height: MediaQuery.of(context).size.height * 0.6,
               padding: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -108,7 +107,7 @@ Future<void> _submitForm() async {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     const Padding(
-                      padding: EdgeInsets.only(bottom: 20.0),
+                      padding: EdgeInsets.only(bottom: 5.0),
                       child: Text(
                         'Please rate each factor on a scale from 1 to 5:',
                         style: TextStyle(
@@ -267,7 +266,7 @@ Future<void> _submitForm() async {
                         return null;
                       },
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 15),
                     ElevatedButton(
                       onPressed: _submitForm,
                       style: ElevatedButton.styleFrom(

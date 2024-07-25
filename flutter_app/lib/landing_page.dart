@@ -11,7 +11,7 @@ class LandingPage extends StatelessWidget {
       backgroundColor: const Color(0xFFFFE6E6),
       body: GestureDetector(
         onTap: () {
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => const FormPage()),
           );
@@ -20,7 +20,7 @@ class LandingPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              const _AnimatedLogo(), // Animated logo
+              const _AnimatedLogo(),
               const SizedBox(height: 10),
               Text(
                 'Mind Metrics',
